@@ -35,15 +35,15 @@ services:
       - "${CONFIG_DIR}/plex:/config"
       - "${MEDIA_DIR}:/data"
       - "${PLEX_TRANSCODE_DIR}:/transcode"
-  plexrequests: 
+  ombi: 
     env_file: media.env
-    image: linuxserver/plexrequests
+    image: linuxserver/ombi
     network_mode: host
-    ports: ["3000:3000"]
+    ports: ["3579:3579"]
     volumes: 
-      - "${CONFIG_DIR}/plexrequests:/config"
+      - "${CONFIG_DIR}/ombi:/config"
       - "${MEDIA_DIR}/TV:/tv"
-      - "/dev/rtc:/dev/rtc:ro"
+      - "/etc/localtime:/etc/locatime:ro"
   sonarr: 
     env_file: media.env
     image: linuxserver/sonarr
@@ -65,5 +65,4 @@ services:
     volumes: 
       - "${DOWNLOAD_DIR}:/downloads"
       - "${CONFIG_DIR}/transmission:/config"
-
 
