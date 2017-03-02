@@ -20,6 +20,7 @@ download_dir=/media/external/Downloads
 config_dir=/media/external/Config
 media_dir=/media/external/
 plex_transcode_dir=/plex-transcode-tmp
+timezone=$(cat /etc/timezone)
 ask_for_plex_claim=true
 
 media_user_id=$(id -u media)
@@ -75,7 +76,7 @@ export CONFIG_DIR=${config_dir}
 export MEDIA_DIR=${media_dir}
 export PLEX_TRANSCODE_DIR=${plex_transcode_dir}
 
-echo -e "PUID=${media_user_id}\nPGID=${media_group_id}\n" > media.env
+echo -e "PUID=${media_user_id}\nPGID=${media_group_id}\nTZ=${timezone}" > media.env
 echo -e "PLEX_UID=${media_user_id}\nPLEX_GID=${media_group_id}\n" > plex_media.env
 
 docker-compose -p server up -d
