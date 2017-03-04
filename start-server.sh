@@ -80,4 +80,5 @@ echo -e "PUID=${media_user_id}\nPGID=${media_group_id}\nTZ=${timezone}" > media.
 echo -e "PLEX_UID=${media_user_id}\nPLEX_GID=${media_group_id}\n" > plex.env
 
 docker-compose -p server up -d
-
+rm media.env
+rm plex.env
