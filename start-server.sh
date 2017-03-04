@@ -77,7 +77,7 @@ export MEDIA_DIR=${media_dir}
 export PLEX_TRANSCODE_DIR=${plex_transcode_dir}
 
 echo -e "PUID=${media_user_id}\nPGID=${media_group_id}\nTZ=${timezone}" > media.env
-echo -e "PLEX_UID=${media_user_id}\nPLEX_GID=${media_group_id}\n" > plex_media.env
+echo -e "PLEX_UID=${media_user_id}\nPLEX_GID=${media_group_id}\n" > plex.env
 
 docker-compose -p server up -d
 

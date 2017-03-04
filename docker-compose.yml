@@ -26,7 +26,7 @@ services:
       - "${DOWNLOAD_DIR}:/downloads"
       - "${CONFIG_DIR}/nzbget:/config"
   plex: 
-    env_file: plex_media.env
+    env_file: plex.env
     environment: 
       - PLEX_CLAIM="${PLEX_CLAIM}"
     image: plexinc/pms-docker
