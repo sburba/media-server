@@ -29,7 +29,7 @@ services:
     env_file: plex.env
     environment: 
       - PLEX_CLAIM="${PLEX_CLAIM}"
-    image: plexinc/pms-docker
+    image: plexinc/pms-docker:plexpass
     network_mode: host
     volumes: 
       - "${CONFIG_DIR}/plex:/config"
