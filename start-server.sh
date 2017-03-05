@@ -88,5 +88,7 @@ if [ ! -f ./basicauth.conf ]; then
 fi
 
 docker-compose -p server up -d
+
+# Clean up after ourselves
 rm media.env
 rm plex.env
