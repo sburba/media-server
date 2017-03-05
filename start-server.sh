@@ -79,6 +79,14 @@ export PLEX_TRANSCODE_DIR=${plex_transcode_dir}
 echo -e "PUID=${media_user_id}\nPGID=${media_group_id}\nTZ=${timezone}" > media.env
 echo -e "PLEX_UID=${media_user_id}\nPLEX_GID=${media_group_id}\n" > plex.env
 
+if [ ! -f ./basicauth.conf ]; then
+    echo "Enter preferred admin auth credentials"
+    read -p "Username: " username
+    read -sp "Password: " password
+    echo ""
+    echo "basicauth / \"${username}\" \"${password}\"" > basicauth.conf
+fi
+
 docker-compose -p server up -d
 rm media.env
 rm plex.env

@@ -1,3 +1,7 @@
+# start-server.sh outputs
 media.env
 plex_media.env
+basicauth.conf
+
+# vim swap files
 *.swp

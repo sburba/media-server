@@ -1,3 +1,6 @@
+# TODO: Stop using network_mode: host and make all the services talk to each other the right way
+# I'm leaving all the port specifications in so that I don't have to look them up when I finally fix that
+
 version: "3"
 services: 
   couchpotato: 
@@ -72,4 +75,13 @@ services:
       - "./tarsnapper.conf:/etc/tarsnapper.conf:ro"
       - "/root/tarsnap.key:/tarsnap/key:ro"
       - "/etc/localtime:/etc/localtime:ro"
-
+  caddy:
+    image: abiosoft/caddy
+    network_mode: host
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./Caddyfile:/etc/Caddyfile"
+      - "./basicauth.conf:/etc/basicauth.conf"
+      - "${CONFIG_DIR}/caddy:/root/.caddy"

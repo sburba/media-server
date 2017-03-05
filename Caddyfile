@@ -1,0 +1,60 @@
+nzb.burba.io {
+    proxy / localhost:6789 {
+        transparent
+    }
+    tls admin@samburba.com
+    import basicauth.conf
+}
+
+torrent.burba.io {
+    rewrite / /web/
+
+    rewrite / {
+        regexp "((style|javascript|images).*)"
+        to /web/{1}
+    }
+
+    proxy / localhost:9091 {
+        transparent
+    }
+
+    tls admin@samburba.com
+    import basicauth.conf
+}
+
+tv.burba.io {
+    proxy / localhost:8989 {
+        transparent
+    }
+
+    tls admin@samburba.com
+    import basicauth.conf
+}
+
+jackett.burba.io {
+    proxy / localhost:9117 {
+        transparent
+    }
+
+    tls admin@samburba.com
+    import basicauth.conf
+}
+
+movies.burba.io {
+    proxy / localhost:5050 {
+        transparent
+    }
+
+    tls admin@samburba.com
+    import basicauth.conf
+}
+
+request.burba.io {
+    proxy / localhost:3579 {
+        transparent
+        websocket
+    }
+
+    tls admin@samburba.com
+}
+
