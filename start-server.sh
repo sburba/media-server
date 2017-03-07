@@ -89,7 +89,7 @@ if [ ! -f ./basicauth.conf ]; then
     echo "basicauth / \"${username}\" \"${password}\"" > basicauth.conf
 fi
 
-docker-compose -p server up -d
+docker-compose -p server up -d --remove-orphans
 
 # Clean up after ourselves
 rm media.env
