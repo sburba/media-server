@@ -41,7 +41,7 @@ jackett.burba.io {
 }
 
 movies.burba.io {
-    proxy / host:5050 {
+    proxy / host:7878 {
         transparent
     }
 
