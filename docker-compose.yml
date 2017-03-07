@@ -1,14 +1,14 @@
 version: "3"
 services:
-  couchpotato: 
+  radarr:
     env_file: media.env
-    image: linuxserver/couchpotato
-    ports: ["5050:5050"]
+    image: linuxserver/radarr
+    ports: ["7878:7878"]
     extra_hosts:
       - "host:${HOST_IP}"
     volumes: 
       - "${DOWNLOAD_DIR}:/downloads"
-      - "${CONFIG_DIR}/couchpotato:/config"
+      - "${CONFIG_DIR}/radarr:/config"
       - "${MEDIA_DIR}/Movies:/movies"
   jackett: 
     env_file: media.env
@@ -37,11 +37,13 @@ services:
   ombi: 
     env_file: media.env
     image: linuxserver/ombi
-    network_mode: host
     ports: ["3579:3579"]
+    extra_hosts:
+      - "host:${HOST_IP}"
     volumes: 
       - "${CONFIG_DIR}/ombi:/config"
       - "${MEDIA_DIR}/TV:/tv"
+      - "${MEDIA_DIR}/Movies:/movies"
       - "/etc/localtime:/etc/locatime:ro"
   sonarr: 
     env_file: media.env
