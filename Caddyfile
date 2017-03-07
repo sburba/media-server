@@ -1,5 +1,5 @@
 nzb.burba.io {
-    proxy / localhost:6789 {
+    proxy / host:6789 {
         transparent
     }
     tls admin@samburba.com
@@ -14,7 +14,7 @@ torrent.burba.io {
         to /web/{1}
     }
 
-    proxy / localhost:9091 {
+    proxy / host:9091 {
         transparent
     }
 
@@ -23,7 +23,7 @@ torrent.burba.io {
 }
 
 tv.burba.io {
-    proxy / localhost:8989 {
+    proxy / host:8989 {
         transparent
     }
 
@@ -32,7 +32,7 @@ tv.burba.io {
 }
 
 jackett.burba.io {
-    proxy / localhost:9117 {
+    proxy / host:9117 {
         transparent
     }
 
@@ -41,7 +41,7 @@ jackett.burba.io {
 }
 
 movies.burba.io {
-    proxy / localhost:5050 {
+    proxy / host:5050 {
         transparent
     }
 
@@ -50,7 +50,7 @@ movies.burba.io {
 }
 
 request.burba.io {
-    proxy / localhost:3579 {
+    proxy / host:3579 {
         transparent
         websocket
     }

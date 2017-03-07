@@ -1,13 +1,11 @@
-# TODO: Stop using network_mode: host and make all the services talk to each other the right way
-# I'm leaving all the port specifications in so that I don't have to look them up when I finally fix that
-
 version: "3"
-services: 
+services:
   couchpotato: 
     env_file: media.env
     image: linuxserver/couchpotato
-    network_mode: host
     ports: ["5050:5050"]
+    extra_hosts:
+      - "host:${HOST_IP}"
     volumes: 
       - "${DOWNLOAD_DIR}:/downloads"
       - "${CONFIG_DIR}/couchpotato:/config"
@@ -15,7 +13,6 @@ services:
   jackett: 
     env_file: media.env
     image: linuxserver/jackett
-    network_mode: host
     ports: ["9117:9117"]
     volumes: 
       - "${DOWNLOAD_DIR}:/downloads"
@@ -23,7 +20,6 @@ services:
   nzbget: 
     env_file: media.env
     image: linuxserver/nzbget
-    network_mode: host
     ports: ["6789:6789"]
     volumes: 
       - "${DOWNLOAD_DIR}:/downloads"
@@ -50,8 +46,9 @@ services:
   sonarr: 
     env_file: media.env
     image: linuxserver/sonarr
-    network_mode: host
     ports: ["8989:8989"]
+    extra_hosts:
+      - "host:${HOST_IP}"
     volumes: 
       - "${DOWNLOAD_DIR}:/downloads"
       - "${CONFIG_DIR}/sonarr:/config"
@@ -60,7 +57,6 @@ services:
   transmission: 
     env_file: media.env
     image: linuxserver/transmission
-    network_mode: host
     ports: 
       - "9091:9091"
       - "51413:51413"
@@ -77,10 +73,11 @@ services:
       - "/etc/localtime:/etc/localtime:ro"
   caddy:
     image: abiosoft/caddy
-    network_mode: host
     ports:
       - "80:80"
       - "443:443"
+    extra_hosts:
+      - "host:${HOST_IP}"
     volumes:
       - "./Caddyfile:/etc/Caddyfile"
       - "./basicauth.conf:/etc/basicauth.conf"
