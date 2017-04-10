@@ -58,3 +58,11 @@ request.burba.io {
     tls admin@samburba.com
 }
 
+
+portainer.burba.io {
+    proxy / host:9000 {
+        transparent
+    }
+
+    tls admin@samburba.com
+}

@@ -95,3 +95,11 @@ services:
       - "./Caddyfile:/etc/Caddyfile"
       - "./basicauth.conf:/etc/basicauth.conf"
       - "${CONFIG_DIR}/caddy:/root/.caddy"
+  portainer:
+    restart: always
+    image: portainer/portainer
+    ports:
+      - "9000:9000"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
