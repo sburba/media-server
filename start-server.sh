@@ -72,11 +72,17 @@ if [[ "$ask_for_plex_claim" = true ]]; then
     export PLEX_CLAIM_TOKEN=${plex_claim_token}
 fi
 
+cat > compose_env_variables.sh <<EOF
+#!/bin/bash
+
 export DOWNLOAD_DIR=${download_dir}
 export CONFIG_DIR=${config_dir}
 export MEDIA_DIR=${media_dir}
 export PLEX_TRANSCODE_DIR=${plex_transcode_dir}
 export HOST_IP=${host_ip}
+EOF
+
+. compose_env_variables.sh
 
 echo -e "PUID=${media_user_id}\nPGID=${media_group_id}\nTZ=${timezone}" > media.env
 echo -e "PLEX_UID=${media_user_id}\nPLEX_GID=${media_group_id}\n" > plex.env
@@ -90,7 +96,3 @@ if [ ! -f ./basicauth.conf ]; then
 fi
 
 docker-compose -p server up -d --remove-orphans
-
-# Clean up after ourselves
-rm media.env
-rm plex.env

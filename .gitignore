@@ -1,4 +1,5 @@
 # start-server.sh outputs
+plex.env
 media.env
 plex_media.env
 basicauth.conf

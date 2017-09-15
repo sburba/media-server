@@ -82,9 +82,7 @@ services:
       - "/root/tarsnap.key:/tarsnap/key:ro"
       - "/etc/localtime:/etc/localtime:ro"
   caddy:
-    restart_policy:
-      condition: any
-      max_attempts: 3
+    restart: on-failure:3
     image: abiosoft/caddy
     ports:
       - "80:80"
