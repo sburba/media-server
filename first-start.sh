@@ -126,4 +126,4 @@ if [ ! -f ./basicauth.conf ]; then
     echo "basicauth / \"${username}\" \"${password}\"" > basicauth.conf
 fi
 
-docker-compose up -d --remove-orphans
+docker-compose up -d
