@@ -67,6 +67,38 @@ while true; do
     esac
 done
 
+if [[ ! -f Caddyfile || ! -f ddclient.conf ]]; then
+    read -p "Enter your domain: " domain
+    export DOMAIN=${domain}
+fi
+
+if [ ! -f Caddyfile ]; then
+    read -p "Enter your admin email: " admin_email
+
+    DOMAIN=${domain} ADMIN_EMAIL=${admin_email} envsubst < Caddyfile.tmpl > Caddyfile
+fi
+
+subdomains="ssh nzb torrent tv jackett movies request portainer"
+if [ ! -f ddclient.conf ]; then
+    read -p "Enter the dns host: " dns_host
+
+    for subdomain in ${subdomains}; do
+        read -p "Enter the dns username for the ${subdomain} subdomain: " username
+        read -sp "Enter the dns password for the ${subdomain} subdomain:" password
+        echo ""
+        cat << EOF >> ddclient.conf
+protocol=dyndns2
+use=web
+server=${dns_host}
+ssl=yes
+login=${username}
+password='${password}'
+${subdomain}.${domain}
+
+EOF
+    done
+fi
+
 # You only want to ask for plex claim once, when you first start on this computer
 # Afterwards, it will have stored credentials in the $config_dir/plex
 if [[ "$ask_for_plex_claim" = true ]]; then

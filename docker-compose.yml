@@ -81,6 +81,11 @@ services:
       - "./tarsnapper.conf:/etc/tarsnapper.conf:ro"
       - "/root/tarsnap.key:/tarsnap/key:ro"
       - "/etc/localtime:/etc/localtime:ro"
+  ddclient:
+      restart: always
+      image: linuxserver/ddclient
+      volumes:
+          - ${CONFIG_DIR}/ddclient:/config
   caddy:
     restart: on-failure:3
     image: abiosoft/caddy

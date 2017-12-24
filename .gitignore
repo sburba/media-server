@@ -3,6 +3,8 @@
 plex.env
 media.env
 basicauth.conf
+ddclient.conf
+Caddyfile
 
 # vim swap files
 *.swp

@@ -1,12 +1,12 @@
-nzb.burba.io {
+nzb.${DOMAIN} {
     proxy / host:6789 {
         transparent
     }
-    tls admin@samburba.com
+    tls ${ADMIN_EMAIL}
     import basicauth.conf
 }
 
-torrent.burba.io {
+torrent.${DOMAIN} {
     rewrite / /web/
 
     rewrite / {
@@ -18,51 +18,51 @@ torrent.burba.io {
         transparent
     }
 
-    tls admin@samburba.com
+    tls ${ADMIN_EMAIL}
     import basicauth.conf
 }
 
-tv.burba.io {
+tv.${DOMAIN} {
     proxy / host:8989 {
         transparent
     }
 
-    tls admin@samburba.com
+    tls ${ADMIN_EMAIL}
     import basicauth.conf
 }
 
-jackett.burba.io {
+jackett.${DOMAIN} {
     proxy / host:9117 {
         transparent
     }
 
-    tls admin@samburba.com
+    tls ${ADMIN_EMAIL}
     import basicauth.conf
 }
 
-movies.burba.io {
+movies.${DOMAIN} {
     proxy / host:7878 {
         transparent
     }
 
-    tls admin@samburba.com
+    tls ${ADMIN_EMAIL}
     import basicauth.conf
 }
 
-request.burba.io {
+request.${DOMAIN} {
     proxy / host:3579 {
         transparent
         websocket
     }
 
-    tls admin@samburba.com
+    tls ${ADMIN_EMAIL}
 }
 
 
-portainer.burba.io {
+portainer.${DOMAIN} {
     proxy / host:9000 {
         transparent
     }
 
-    tls admin@samburba.com
+    tls ${ADMIN_EMAIL}
 }
