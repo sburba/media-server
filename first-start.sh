@@ -30,7 +30,7 @@ media_group_id=$(id -g media)
 short=d:c:m:t:
 long=download-dir:,config-dir:,media-dir:,plex-transcode-dir:,no-plex-claim
 
-parsed=$(getopt --options ${short} --longoptions $long --name "$0" -- "$@") || print_usage_and_quit
+parsed=$(getopt --options ${short} --longoptions ${long} --name "$0" -- "$@") || print_usage_and_quit
 
 eval set -- "$parsed"
 
@@ -67,22 +67,21 @@ while true; do
     esac
 done
 
+# You only want to ask for plex claim once, when you first start on this computer
+# Afterwards, it will have stored credentials in the $config_dir/plex
 if [[ "$ask_for_plex_claim" = true ]]; then
     read -p "Enter your Plex claim token: " plex_claim_token
     export PLEX_CLAIM_TOKEN=${plex_claim_token}
 fi
 
-cat > compose_env_variables.sh <<EOF
-#!/bin/bash
-
-export DOWNLOAD_DIR=${download_dir}
-export CONFIG_DIR=${config_dir}
-export MEDIA_DIR=${media_dir}
-export PLEX_TRANSCODE_DIR=${plex_transcode_dir}
-export HOST_IP=${host_ip}
+cat > .env <<EOF
+COMPOSE_PROJECT_NAME=server
+DOWNLOAD_DIR=${download_dir}
+CONFIG_DIR=${config_dir}
+MEDIA_DIR=${media_dir}
+PLEX_TRANSCODE_DIR=${plex_transcode_dir}
+HOST_IP=${host_ip}
 EOF
-
-. compose_env_variables.sh
 
 echo -e "PUID=${media_user_id}\nPGID=${media_group_id}\nTZ=${timezone}" > media.env
 echo -e "PLEX_UID=${media_user_id}\nPLEX_GID=${media_group_id}\n" > plex.env
@@ -95,4 +94,4 @@ if [ ! -f ./basicauth.conf ]; then
     echo "basicauth / \"${username}\" \"${password}\"" > basicauth.conf
 fi
 
-docker-compose -p server up -d --remove-orphans
+docker-compose up -d --remove-orphans
