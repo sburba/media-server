@@ -73,14 +73,6 @@ services:
     volumes: 
       - "${DOWNLOAD_DIR}:/downloads"
       - "${CONFIG_DIR}/transmission:/config"
-  tarsnapper:
-    restart: always
-    image: dangmai/tarsnapper
-    volumes:
-      - "${CONFIG_DIR}:/backup:ro"
-      - "./tarsnapper.conf:/etc/tarsnapper.conf:ro"
-      - "/root/tarsnap.key:/tarsnap/key:ro"
-      - "/etc/localtime:/etc/localtime:ro"
   ddclient:
       restart: always
       image: linuxserver/ddclient
