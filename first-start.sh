@@ -67,18 +67,19 @@ while true; do
     esac
 done
 
-if [[ ! -f Caddyfile || ! -f ddclient.conf ]]; then
+caddyfile=${config_dir}/caddy/Caddyfile
+ddclient_conf=${config_dir}/ddclient/ddclient.conf
+if [[ ! -f ${caddyfile} || ! -f ${ddclient_conf} ]]; then
     read -p "Enter your domain: " domain
-    export DOMAIN=${domain}
 fi
 
-if [ ! -f Caddyfile ]; then
+if [ ! -f ${caddyfile} ]; then
     read -p "Enter your admin email: " admin_email
 
-    DOMAIN=${domain} ADMIN_EMAIL=${admin_email} envsubst < Caddyfile.tmpl > Caddyfile
+    DOMAIN=${domain} ADMIN_EMAIL=${admin_email} envsubst < Caddyfile.tmpl > ${caddyfile}
 fi
 
-subdomains="ssh nzb torrent tv jackett movies request portainer"
+subdomains="ssh nzb torrent tv jackett movies request"
 if [ ! -f ddclient.conf ]; then
     read -p "Enter the dns host: " dns_host
 
@@ -86,7 +87,7 @@ if [ ! -f ddclient.conf ]; then
         read -p "Enter the dns username for the ${subdomain} subdomain: " username
         read -sp "Enter the dns password for the ${subdomain} subdomain:" password
         echo ""
-        cat << EOF >> ddclient.conf
+        cat << EOF >> $ddclient_conf
 protocol=dyndns2
 use=web
 server=${dns_host}
@@ -118,12 +119,13 @@ EOF
 echo -e "PUID=${media_user_id}\nPGID=${media_group_id}\nTZ=${timezone}" > media.env
 echo -e "PLEX_UID=${media_user_id}\nPLEX_GID=${media_group_id}\n" > plex.env
 
-if [ ! -f ./basicauth.conf ]; then
+basic_auth=${config_dir}/caddy/basicauth.conf
+if [ ! -f ${basicauth} ]; then
     echo "Enter preferred admin auth credentials"
     read -p "Username: " username
     read -sp "Password: " password
     echo ""
-    echo "basicauth / \"${username}\" \"${password}\"" > basicauth.conf
+    echo "basicauth / \"${username}\" \"${password}\"" > ${basicauth}
 fi
 
 docker-compose up -d
