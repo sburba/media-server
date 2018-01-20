@@ -66,6 +66,11 @@ while true; do
     esac
 done
 
+# Make the caddy and ddclient config dirs if necessary
+# We need these to exist so we can drop the generated configs in there
+mkdir -p ${config_dir}/caddy
+mkdir -p ${config_dir}/ddclient
+
 caddyfile=${config_dir}/caddy/Caddyfile
 ddclient_conf=${config_dir}/ddclient/ddclient.conf
 if [[ ! -f ${caddyfile} || ! -f ${ddclient_conf} ]]; then
