@@ -1,5 +1,5 @@
 nzb.${DOMAIN} {
-    proxy / host:6789 {
+    proxy / nzbget:6789 {
         transparent
     }
     tls ${ADMIN_EMAIL}
@@ -14,7 +14,7 @@ torrent.${DOMAIN} {
         to /web/{1}
     }
 
-    proxy / host:9091 {
+    proxy / transmission:9091 {
         transparent
     }
 
@@ -23,7 +23,7 @@ torrent.${DOMAIN} {
 }
 
 tv.${DOMAIN} {
-    proxy / host:8989 {
+    proxy / sonarr:8989 {
         transparent
     }
 
@@ -32,7 +32,7 @@ tv.${DOMAIN} {
 }
 
 jackett.${DOMAIN} {
-    proxy / host:9117 {
+    proxy / jackett:9117 {
         transparent
     }
 
@@ -41,7 +41,7 @@ jackett.${DOMAIN} {
 }
 
 movies.${DOMAIN} {
-    proxy / host:7878 {
+    proxy / radarr:7878 {
         transparent
     }
 
@@ -50,17 +50,9 @@ movies.${DOMAIN} {
 }
 
 request.${DOMAIN} {
-    proxy / host:3579 {
+    proxy / ombi:3579 {
         transparent
         websocket
-    }
-
-    tls ${ADMIN_EMAIL}
-}
-
-portainer.${DOMAIN} {
-    proxy / host:9000 {
-        transparent
     }
 
     tls ${ADMIN_EMAIL}
