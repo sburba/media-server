@@ -80,7 +80,7 @@ if [ ! -f ${caddyfile} ]; then
 fi
 
 subdomains="ssh nzb torrent tv jackett movies request"
-if [ ! -f ddclient.conf ]; then
+if [ ! -f ${ddclient_conf} ]; then
     read -p "Enter the dns host: " dns_host
 
     for subdomain in ${subdomains}; do
@@ -120,12 +120,12 @@ echo -e "PUID=${media_user_id}\nPGID=${media_group_id}\nTZ=${timezone}" > media.
 echo -e "PLEX_UID=${media_user_id}\nPLEX_GID=${media_group_id}\n" > plex.env
 
 basic_auth=${config_dir}/caddy/basicauth.conf
-if [ ! -f ${basicauth} ]; then
+if [ ! -f ${basic_auth} ]; then
     echo "Enter preferred admin auth credentials"
     read -p "Username: " username
     read -sp "Password: " password
     echo ""
-    echo "basicauth / \"${username}\" \"${password}\"" > ${basicauth}
+    echo "basicauth / \"${username}\" \"${password}\"" > ${basic_auth}
 fi
 
 docker-compose up -d
